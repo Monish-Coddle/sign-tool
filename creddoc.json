@@ -2,7 +2,7 @@
   "@context": [
     "https://w3id.org/identity/v1",
     "https://w3id.org/security/v1",
-    "https://schema.dominode.com/dominode-schema.json"
+    "http://schema.dominode.com/dominode-schema.json"
   ],
   "CredentialSource": {
     "dateOfExpiration": "2020-01-17T00:00:00Z",
@@ -18,7 +18,6 @@
       "postalCode": "30040-6513",
       "streetAddress": "6725 MOULTON PL"
     },
-    //"birthDate": "1962-12-20T00:00:00.000Z",
     "dateOfIssue": "2016-12-09T00:00:00.000Z",
     "familyName": "DUNCAN",
     "givenName": "CHERIE MARIE",

@@ -50,50 +50,13 @@ program
 	}else if(program.sign){
 		let file = program.file;
 		// create the JSON-LD document that should be signed
-		var testDocument = {
-		  "@context": [
-		    "https://w3id.org/identity/v1",
-		    "https://w3id.org/security/v1",
-		    "http://schema.dominode.com/dominode-schema.json"
-		  ],
-		  "CredentialSource": {
-		    "dateOfExpiration": "2020-01-17T00:00:00Z",
-		    "dateOfIssue": "2018-12-19T09:41:15-05:00",
-		    "issuer": "did:v1:nym:FYZfnwtr...",
-		    "name": "Driver License"
-		  },
-		  "claim": {
-		    "address": {
-		      "addressCountry": "US",
-		      "addressLocality": "CUMMING",
-		      "addressRegion": "GA",
-		      "postalCode": "30040-6513",
-		      "streetAddress": "6725 MOULTON PL"
-		    },
-		    //"birthDate": "1962-12-20T00:00:00.000Z",
-		    "dateOfIssue": "2016-12-09T00:00:00.000Z",
-		    "familyName": "DUNCAN",
-		    "givenName": "CHERIE MARIE",
-		    "id": "did:ebfeb1f712ebc6f1c276e12ec21"
-		  },
-		  "id": "06e929d3-c429-47ef-b6d7-c55083a68f51",
-		  "issued": "2018-12-19T09:41:15-05:00",
-		  "issuer": "https://agency.dominode.com",
-		  "proofName": "ProofOfExistence",
-		  "type": [
-		    "Credential",
-		    "ProofOfExistence"
-		  ]
-		};
-
 		if (fs.existsSync(program.file)) {
 		    // Do something
 		    let contents = fs.readFileSync(program.file, 'utf8');
-			//console.log('unsigned content', contents);
-			//testDocument = contents;
-
+			let jsonContent = JSON.parse(contents); 
+			
 			// sign the document and then verify the signed document
-			jsig.sign(testDocument, {
+			jsig.sign(jsonContent, {
 			  privateKeyPem: privateKeyPem,
 			  creator: 'did:v1:test:nym:nmR9EvCsQ8Jj-OTC7LD9Mb0q5mHqKj_4f75myaR3i5M',
 			  algorithm: 'RsaSignature2018'
@@ -120,9 +83,9 @@ program
 	}else if(program.verify){
 		if (fs.existsSync(program.file)) {
 		    // Do something
-			let contents = fs.readFileSync(program.file, 'utf8');
-			console.log('signed content', contents);
-
+			let signedContent = fs.readFileSync(program.file, 'utf8');
+			console.log('signed content', signedContent);
+			let signedDocument = JSON.parse(signedContent); 
 			// verify the signed document
 		  jsig.verify(signedDocument, {
 		    publicKey: publicKey,
